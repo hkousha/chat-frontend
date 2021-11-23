@@ -27,7 +27,7 @@ export default class App extends React.Component {
 
     this.connection.onmessage = async (event) => {
       const blob = JSON.parse(event.data);
-      const message = blob.text;
+      const message = JSON.parse(blob.body).text;
 
       console.log("WebSocket received", message);
 

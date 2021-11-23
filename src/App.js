@@ -26,8 +26,8 @@ export default class App extends React.Component {
     };
 
     this.connection.onmessage = async (event) => {
-      const blob = event.data;
-      const message = await blob.text();
+      const blob = JSON.parse(event.data);
+      const message = blob.text;
 
       console.log("WebSocket received", message);
 
@@ -54,7 +54,8 @@ export default class App extends React.Component {
           onSubmit={(event) => {
             event.preventDefault();
 
-            this.connection.send(this.state.message);
+            const jsonMessage = {"text": this.state.message}
+            this.connection.send(JSON.stringify(jsonMessage));
             this.setState({ message: "" });
           }}
         >
